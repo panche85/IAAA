@@ -4,4 +4,8 @@ dsadsa
 sadASDas
 sdfgsdf
 
+<<<<<<< HEAD
+=======
+proba da vidime kako ke raboti
+>>>>>>> develop
 test test
