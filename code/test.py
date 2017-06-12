@@ -20,3 +20,23 @@ res = tf.mul(v1,v2)
 # tuka se povikuva operacijata (ekvivalentno na povik na funkcija - startuvash sesija)
 with tf.Session() as ime_sesija:
     print("Tuka se izvrshuva operacijata so parametri: %d" % ime_sesija.run(res, feed_dict={v1: 24, v2: 8}))
+
+# ednostaven primer ya for ciklus
+v3 = 8
+
+print("result", 3*v3)
+
+midpoint = 5
+
+lower = []; upper = []
+
+for i in range(20):
+    if(i > midpoint):
+        upper.append(i)
+    else:
+        lower.append(i)
+
+print("lower: ", lower)
+print("upper: ", upper)
+
+
