@@ -4,9 +4,11 @@ import re
 
 from dataStoring import append_data
 from dataStoring import read_data
-#from dataStoring import read_data_tail
+from dataStoring import read_data_tail
 
-def get_data_spitogatos():
+filename = './data.csv'
+
+def get_data_spitogatos(filename):
     page = requests.get("https://en.spitogatos.gr/search/results/residential/sale/r108/m108m")
 
     # Vraka status na pristap na stranata:
@@ -20,7 +22,7 @@ def get_data_spitogatos():
     body = list(html.children)[3]
     # print list(body.children)
 
-    # Zemanje na delot od HTML-to kaj sto
+    # Zemanje na delot od HTML-to
     search_list = soup.find(id='searchDetailsMainContent')
     prices = search_list.find_all(class_='text xbig bold padding-right')
     locations = search_list.find_all(class_='text color dark_grey margin-bottom-small')
@@ -37,19 +39,19 @@ def get_data_spitogatos():
     item_price = re.sub('[^0-9]+', '', prices[0].get_text())
     item_area = re.sub('[^0-9a-zA-Z]+', '', areas[0*2].get_text())
     item_location = ' '.join(locations[0].get_text().split())
-    # Appending the data to the tail of the file
-    append_data('data.csv', [item_price, item_area, item_location])
 
-    read_data('data.csv')
+    if [item_price, item_area, item_location] == read_data_tail(filename):
+        print 'is equal'
+        read_data(filename)
+    else:
+        print 'is not equal'
+        # Appending the data to the tail of the file
+        append_data(filename, [item_price, item_area, item_location])
 
     return;
 
-get_data_spitogatos();
-
-#print read_data_tail('data.csv')
+get_data_spitogatos(filename);
 
 print('End')
 
-
-#print p.get_text()
 

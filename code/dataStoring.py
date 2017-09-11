@@ -1,6 +1,8 @@
 #!/usr/bin/python
 import csv
-#import tailer as tl
+
+
+# import tailer as tl
 
 
 # Function definition is here
@@ -25,8 +27,21 @@ def read_data(file_name):
             print row
     return;
 
-    # def read_data_tail(file_name):
-    #    file = open(file_name)
-    #    lastLines = tl.tail(file, 3)  # to read last 15 lines, change it  to any value.
-    #    file.close()
-    #    return lastLines;
+
+def read_data_tail(file_name):
+    row_count = 0
+    last = []
+    with open(file_name, 'rb') as f:
+        reader = csv.reader(f, delimiter=';', quoting=csv.QUOTE_NONE)
+        row_count = sum(1 for row in reader)
+        print row_count
+    with open(file_name, 'rb') as f:
+        reader = csv.reader(f, delimiter=';', quoting=csv.QUOTE_NONE)
+        i = 0;
+        for row in reader:
+            if i == (row_count-1):
+                print "This is the line."
+                last = list(row)
+                break
+            i += 1
+    return last;
