@@ -13,7 +13,9 @@ def get_data_spitogatos(filename):
 
     # Vraka status na pristap na stranata:
     # status code starting with a 2 generally indicates success, and a code starting with a 4 or a 5 indicates an error.
-    print page.status_code
+    if page.status_code != 200:
+        print 'Error accessing the web-site! [error code: ' + page.status_code + ' ]'
+        return;
 
     soup = BeautifulSoup(page.content, 'html.parser')
     # print(soup.prettify())
@@ -41,17 +43,14 @@ def get_data_spitogatos(filename):
     item_location = ' '.join(locations[0].get_text().split())
 
     if [item_price, item_area, item_location] == read_data_tail(filename):
-        print 'is equal'
-        read_data(filename)
+        print 'Nothing to get.'
     else:
-        print 'is not equal'
+        print 'New data is detected!'
         # Appending the data to the tail of the file
         append_data(filename, [item_price, item_area, item_location])
-
+        read_data(filename)
     return;
 
 get_data_spitogatos(filename);
 
 print('End')
-
-
