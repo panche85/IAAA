@@ -34,7 +34,7 @@ print prices[7].get_text() + '\t\t' + re.sub('[^0-9a-zA-Z]+', '', area[14].get_t
 print prices[8].get_text() + '\t\t' + re.sub('[^0-9a-zA-Z]+', '', area[16].get_text()) + '\t' + locations[8].get_text()
 print prices[9].get_text() + '\t\t' + re.sub('[^0-9a-zA-Z]+', '', area[18].get_text()) + '\t' + locations[9].get_text()
 
-printinfo('nikica', '32')
+printinfo('test' , '111')
 
 print('End')
 
