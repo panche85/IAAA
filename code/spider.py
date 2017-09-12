@@ -29,8 +29,8 @@ def get_data_spitogatos(filename):
     prices = search_list.find_all(class_='text xbig bold padding-right')
     locations = search_list.find_all(class_='text color dark_grey margin-bottom-small')
     areas = search_list.find_all(class_='padding-right text medium')
-
-    # Get Timestamp
+    dates = search_list.find_all(class_='text color grey_dark')
+    links = search_list.find_all(class_='text color cyan larger  semibold searchListing_title')
 
     #i = 0
     #for i in range(10):
@@ -41,14 +41,21 @@ def get_data_spitogatos(filename):
     item_price = re.sub('[^0-9]+', '', prices[0].get_text())
     item_area = re.sub('[^0-9a-zA-Z]+', '', areas[0*2].get_text())
     item_location = ' '.join(locations[0].get_text().split())
+    item_data = re.sub('[^0-9/]+', '', dates[0].get_text())
+    #item_link = links[0].get_text()
 
-    if [item_price, item_area, item_location] == read_data_tail(filename):
+    if [item_price, item_area, item_location, item_data] == read_data_tail(filename):
         print 'Nothing to get.'
     else:
         print 'New data is detected!'
         # Appending the data to the tail of the file
-        append_data(filename, [item_price, item_area, item_location])
-        read_data(filename)
+        append_data(filename, [item_price, item_area, item_location, item_data])
+        #read_data(filename)
+        #read_data_tail(filename)
+        # Send notification
+        if int(item_price) <= 20000:
+            print 'todo: implement email notification!'
+
     return;
 
 get_data_spitogatos(filename);
