@@ -9,7 +9,7 @@ from dataStoring import read_data
 from dataStoring import read_data_tail
 
 timestr = time.strftime("%Y%m%d")
-print timestr
+print time.strftime("%Y%m%d-%H%M%S")
 
 filename = './data_'+timestr+'.csv'
 
@@ -35,7 +35,10 @@ def get_data_spitogatos(filename):
     locations = search_list.find_all(class_='text color dark_grey margin-bottom-small')
     areas = search_list.find_all(class_='padding-right text medium')
     dates = search_list.find_all(class_='text color grey_dark')
-    links = search_list.find_all(class_='text color cyan larger  semibold searchListing_title')
+    links = search_list.find_all(class_='text color cyan larger semibold searchListing_title')
+    #print(links)
+    #for link in links:
+    #    print link.find('a').get('href')
 
     #i = 0
     #for i in range(10):
@@ -49,9 +52,10 @@ def get_data_spitogatos(filename):
         item_area = re.sub('[^0-9a-zA-Z]+', '', areas[i*2].get_text())
         item_location = ' '.join(locations[i].get_text().split())
         item_data = re.sub('[^0-9/]+', '', dates[i].get_text())
-        #item_link = links[0].get_text()
-        # Appending the data to the tail of the file
-        append_data(filename, [item_price, item_area, item_location, item_data])
+        item_link = links[i].find('a').get('href')
+        
+# Appending the data to the tail of the file
+        append_data(filename, [item_price, item_area, item_location, item_data, item_link])
 
         if int(item_price) <= 20000:
             print 'todo: implement email notification!'
