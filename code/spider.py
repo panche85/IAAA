@@ -34,6 +34,7 @@ def get_data_spitogatos(filename):
     prices = search_list.find_all(class_='text xbig bold padding-right')
     locations = search_list.find_all(class_='text color dark_grey margin-bottom-small')
     areas = search_list.find_all(class_='padding-right text medium')
+    squareMs = search_list.find_all(class_='padding-right text medium')
     dates = search_list.find_all(class_='text color grey_dark')
     links = search_list.find_all(class_='text color cyan larger semibold searchListing_title')
     #print(links)
@@ -50,12 +51,13 @@ def get_data_spitogatos(filename):
         # Reformatting the data
         item_price = re.sub('[^0-9]+', '', prices[i].get_text())
         item_area = re.sub('[^0-9a-zA-Z]+', '', areas[i*2].get_text())
+        item_square = re.sub('[^0-9a-zA-Z]+', '', squareMs[(i*2)+1].get_text())
         item_location = ' '.join(locations[i].get_text().split())
         item_data = re.sub('[^0-9/]+', '', dates[i].get_text())
         item_link = links[i].find('a').get('href')
         
-# Appending the data to the tail of the file
-        append_data(filename, [item_price, item_area, item_location, item_data, item_link])
+        # Appending the data to the tail of the file
+        append_data(filename, [item_price, item_area, item_square, item_location, item_data, item_link])
 
         if int(item_price) <= 20000:
             print 'todo: implement email notification!'
