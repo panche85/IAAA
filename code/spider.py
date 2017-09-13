@@ -8,9 +8,10 @@ from dataStoring import append_data
 from dataStoring import read_data
 from dataStoring import read_data_tail
 
-timestr = time.strftime("%Y%m%d")
+# Print the start time of the script
 print time.strftime("%Y%m%d-%H%M%S")
 
+timestr = time.strftime("%Y%m%d")
 filename = './data_'+timestr+'.csv'
 
 def get_data_spitogatos(filename):
@@ -27,7 +28,6 @@ def get_data_spitogatos(filename):
 
     html = list(soup.children)[2]
     body = list(html.children)[3]
-    # print list(body.children)
 
     # Zemanje na delot od HTML-to
     search_list = soup.find(id='searchDetailsMainContent')
@@ -37,15 +37,8 @@ def get_data_spitogatos(filename):
     squareMs = search_list.find_all(class_='padding-right text medium')
     dates = search_list.find_all(class_='text color grey_dark')
     links = search_list.find_all(class_='text color cyan larger semibold searchListing_title')
-    #print(links)
-    #for link in links:
-    #    print link.find('a').get('href')
 
-    #i = 0
-    #for i in range(10):
-    #    print prices[i].get_text() + '\t\t' + re.sub('[^0-9a-zA-Z]+', '', areas[i*2].get_text()) + '\t' + locations[
-    #        i].get_text()
-
+    # Wtrte the data into the file
     i = 0
     for i in range(10):
         # Reformatting the data
@@ -59,7 +52,7 @@ def get_data_spitogatos(filename):
         # Appending the data to the tail of the file
         append_data(filename, [item_price, item_area, item_square, item_location, item_data, item_link])
 
-        if int(item_price) <= 20000:
+        if int(item_price) <= 20000: 
             print 'todo: implement email notification!'
 
     return;
