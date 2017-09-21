@@ -1,6 +1,16 @@
 #!/usr/bin/python
 import csv
 
+def remove_duplicates(file_name):
+    with open(file_name, 'r') as in_file, open('./data/' + file_name, 'w') as out_file:
+        seen = set()  # set for fast O(1) amortized lookup
+        for line in in_file:
+            if line in seen: continue  # skip duplicate
+
+            seen.add(line)
+            out_file.write(line)
+    return;
+
 def append_data(file_name, data):
     with open(file_name, 'a') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)

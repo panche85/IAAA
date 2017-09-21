@@ -3,9 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-from dataStoring import append_data
-from dataStoring import read_data
-from dataStoring import read_data_tail
+from data_handler import append_data
+#from data_handler import read_data
+#from data_handler import read_data_tail
 
 def get_data_spitogatos(filename):
     page = requests.get("https://en.spitogatos.gr/search/results/residential/sale/r108/m108m")
@@ -17,7 +17,8 @@ def get_data_spitogatos(filename):
         return;
         # print(soup.prettify())
 
-    soup = BeautifulSoup(page.content, 'html.parser')
+    data = page.text
+    soup = BeautifulSoup(data, 'html.parser')
 
     html = list(soup.children)[2]
     body = list(html.children)[3]
@@ -31,7 +32,7 @@ def get_data_spitogatos(filename):
     dates = search_list.find_all(class_='text color grey_dark')
     links = search_list.find_all(class_='text color cyan larger semibold searchListing_title')
 
-    # Wtrte the data into the file
+    # Wtrte the data into the filey
     i = 0
     for i in range(10):
         # Reformatting the data
@@ -45,7 +46,5 @@ def get_data_spitogatos(filename):
         # Appending the data to the tail of the file
         append_data(filename, [item_price, item_area, item_square, item_location, item_data, item_link])
 
-        if int(item_price) <= 20000:
-            print 'todo: implement email notification!'
-
     return;
+
