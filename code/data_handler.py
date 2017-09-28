@@ -2,13 +2,13 @@
 import csv
 
 def remove_duplicates(file_name):
-    with open(file_name, 'r') as f:
-        line = csv.reader(f, delimiter=';', quoting=csv.QUOTE_NONE)
-        unique = set()  # set for fast O(1) amortized lookup
-        for line in f:
-            if line[3] in unique: continue  # skip duplicate
-            unique.add(line[3])
-        print unique
+    with open(file_name, 'r') as in_file, open('./data/' + file_name, 'w') as out_file:
+        seen = set()  # set for fast O(1) amortized lookup
+        for line in in_file:
+            if line in seen: continue  # skip duplicate
+
+            seen.add(line)
+            out_file.write(line)
     return;
 
 def append_data(file_name, data):
