@@ -5,43 +5,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText  # Added
 from email.mime.image import MIMEImage
 
-def extract_by_item(file_name, item, index):
-
-    with open(file_name, 'r') as f:
-        reader = csv.reader(f, delimiter=';', quoting=csv.QUOTE_NONE)
-        results = filter(lambda row: row[index] == item, reader)
-    f.close()
-
-    return results;
-
-
-def get_data_graph(file_name):
-
-    unique = set()  # set for fast O(1) amortized lookup
-
-    with open(file_name, 'r') as f:
-        reader = csv.reader(f, delimiter=';', quoting=csv.QUOTE_NONE)
-        # creating a list
-        for line in reader:
-            if line[3] in unique: continue  # skip duplicate
-            unique.add(line[3])
-    f.close()
-
-    data = set()
-    for area in unique:
-        sum = 0
-        counter = 0
-        sort = extract_by_item(file_name, area, 3)
-        for item in sort:
-            sum += float(item[2].replace(" ", "").rstrip(item[2][-2:]).upper())
-            counter += 1
-        data.add((area, sum/counter))
-        print area
-        print sum/counter
-
-    return data;
-
-
 def send_email(recivers, message):
 
     auten_file = "../../private/authentication.csv"
@@ -66,7 +29,7 @@ def send_email(recivers, message):
 def send_email_notification(file_name):
 
     emails_list = "../../private/emails.csv"
-    chart = 'grafik.png'
+    chart = file_name.replace(" ", "").rstrip(file_name[-4:]) + '.png'
     content = '\n'
 
     num_items = 0
