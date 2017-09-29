@@ -2,6 +2,9 @@
 from notifications import send_email_notification
 import csv
 import numpy as np
+# note: Redosledot na povikuvanje na modulite e biten!!!
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 def extract_by_item(file_name, item, index):
@@ -40,12 +43,13 @@ def get_data_graph(file_name):
     return data;
 
 def plot_data(data, file_name):
+    
     names = []
     prices = []
 
     N = len(data)
     std = range(0, N)
-
+    
     for item in data:
         names.append(item[0])
         prices.append(item[1])
