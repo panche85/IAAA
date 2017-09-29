@@ -2,7 +2,6 @@
 from notifications import send_email_notification
 import csv
 import numpy as np
-# note: Redosledot na povikuvanje na modulite e biten!!!
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -58,12 +57,13 @@ def plot_data(data, file_name):
     width = 0.35  # the width of the bars
 
     fig, ax = plt.subplots()
-    rects1 = ax.bar(ind, prices, width, color='y', yerr=std)
+    color = '#eeefff'
+    rects1 = ax.bar(ind+width, prices, width, color='#D2B4DE', yerr=std) # set shift of the graph
 
     # add some text for labels, title and axes ticks
     ax.set_ylabel('Cena (euro/m2)')
     ax.set_title('Dnevni prosecni ceni na stanovite')
-    ax.set_xticks(ind)
+    ax.set_xticks(ind+(width*1.5)) # set shift of the names
 
     ax.set_xticklabels(names)
     plt.xticks(rotation=270)
