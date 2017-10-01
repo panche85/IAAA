@@ -14,7 +14,7 @@ def av_list_update_item(item, value):
 
     file_name = 'av_list.csv'
 
-    with open('./data/' + file_name, 'r+') as io_file:
+    with open(file_name, 'r+') as io_file:
         reader = csv.reader(io_file, delimiter=';', quoting=csv.QUOTE_NONE)
 
         for line in reader:
@@ -24,7 +24,7 @@ def av_list_update_item(item, value):
                 new_avr = ((No_samples*avr) + float(value))/(No_samples + 1)
                 # item is existing
                 print str(line) + ' <- (new_avr = %f)' % new_avr
-                replaceAll('./data/' + file_name,
+                replaceAll(file_name,
                            '%s;%d;%f;' % (item,int(line[1]), float(line[2])),
                            '%s;%d;%f;' % (item, int(line[1])+1, new_avr))
             else:
@@ -38,7 +38,7 @@ def av_list_reset_item(item):
 
     file_name = 'av_list.csv'
 
-    with open('./data/' + file_name, 'r+') as io_file:
+    with open(file_name, 'r+') as io_file:
         reader = csv.reader(io_file, delimiter=';', quoting=csv.QUOTE_NONE)
 
         for line in reader:
@@ -56,7 +56,7 @@ def av_list_reset_item(item):
 
 def av_list_get_avr(item):
     file_name = 'av_list.csv'
-    with open('./data/' + file_name, 'r') as o_file:
+    with open(file_name, 'r') as o_file:
         reader = csv.reader(o_file, delimiter=';', quoting=csv.QUOTE_NONE)
         for line in reader:
             if str(item) in line[0]:
@@ -69,7 +69,7 @@ def av_list_get_avr(item):
 
 # Todo: the function need to be implemented!
 def av_list_update_remove(item):
-    with open(file_name, 'r') as in_file, open('./data/' + file_name, 'w') as out_file:
+    with open(file_name, 'r') as in_file, open(file_name, 'w') as out_file:
         seen = set()  # set for fast O(1) amortized lookup
         for line in in_file:
             if line in seen: continue  # skip duplicate
