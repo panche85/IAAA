@@ -63,7 +63,7 @@ def plot_data(data, file_name):
         std2.append((int(item[2]) % 10))
 
     ind = np.arange(0, N, 1)  # the x locations for the groups
-    width = 0.35  # the width of the bars
+    width = 0.333333  # the width of the bars
 
     fig, ax = plt.subplots()
 
@@ -72,8 +72,8 @@ def plot_data(data, file_name):
 
     color1 = '#5CB3FF'
     color2 = '#CC6600'
-    rects1 = ax.bar(ind+width, prices, width, color=color1, yerr=std1) # set shift of the graph
-    rects2 = ax.bar(ind+(2*width), avr, width, color=color2, yerr=std2)  # set shift of the graph
+    rects1 = ax.bar(ind+(width/2), prices, width, color=color1, yerr=std1) # set shift of the graph
+    rects2 = ax.bar(ind+(1.5*width), avr, width, color=color2, yerr=std2)  # set shift of the graph
 
     # add some text for labels, title and axes ticks
     ax.set_ylabel('Price [euro/m2]')
@@ -111,8 +111,8 @@ def plot_data(data, file_name):
         for rect in rects:
             height = rect.get_height()
             ax.text(rect.get_x() + rect.get_width()/2.,
-                    height,
-                    #height_txt[i] + 75,
+                    #height,
+                    height_txt[i] + 85,
                     '%d' % int(height),
                     ha='center',
                     va='bottom',
