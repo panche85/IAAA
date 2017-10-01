@@ -62,25 +62,28 @@ def plot_data(data, file_name):
         std1.append(int(item[1]) % 10)
         std2.append((int(item[2]) % 10))
 
-    ind = np.arange(0, N * 2, 2)  # the x locations for the groups
-    width = 0.45  # the width of the bars
+    ind = np.arange(0, N, 1)  # the x locations for the groups
+    width = 0.35  # the width of the bars
 
     fig, ax = plt.subplots()
 
-    color1 = '#168EF7'
-    color2 = '#F88017'
-    rects1 = ax.bar(ind, prices, width, color=color1, yerr=std1) # set shift of the graph
-    rects2 = ax.bar(ind + width, avr, width, color=color2, yerr=std2)  # set shift of the graph
+    fig.set_figheight(3)
+    fig.set_figwidth(int(N))
+
+    color1 = '#5CB3FF'
+    color2 = '#CC6600'
+    rects1 = ax.bar(ind+width, prices, width, color=color1, yerr=std1) # set shift of the graph
+    rects2 = ax.bar(ind+(2*width), avr, width, color=color2, yerr=std2)  # set shift of the graph
 
     # add some text for labels, title and axes ticks
-    ax.set_ylabel('Cena (euro/m2)')
-    ax.set_title('Dnevni prosecni ceni na stanovite')
-    ax.set_xticks(ind+width/2) # set shift of the names
+    ax.set_ylabel('Price [euro/m2]')
+    ax.set_title('Thessaloniki - City Areas')
+    ax.set_xticks(ind+(width*1.5)) # set shift of the names
 
     ax.set_xticklabels(names)
     plt.xticks(rotation=270)
 
-    ax.legend((rects1[0],rects2[0]), ('daily average', 'AVR'))
+    ax.legend((rects1[0],rects2[0]), ('Daily-Average Price', 'Average Price'), loc='center left', bbox_to_anchor=(1, 0.5))
 
     def autolabel1(rects):
         """
@@ -92,7 +95,8 @@ def plot_data(data, file_name):
                     height,
                     '%d' % int(height),
                     ha='center',
-                    va='bottom')
+                    va='bottom',
+                    color='b')
 
     def autolabel2(rects, rects_txt):
         """
@@ -107,7 +111,8 @@ def plot_data(data, file_name):
         for rect in rects:
             height = rect.get_height()
             ax.text(rect.get_x() + rect.get_width()/2.,
-                    height_txt[i] + 85,
+                    height,
+                    #height_txt[i] + 75,
                     '%d' % int(height),
                     ha='center',
                     va='bottom',
