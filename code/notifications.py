@@ -70,7 +70,7 @@ def send_email_notification(file_name):
     # We reference the image in the IMG SRC attribute by the ID we give it below
     msgText = MIMEText('Dneven report/analiza na oglasi (izvor www.spitogatos.gr).<br> '
                        '<b>Analiza bazirana na %d oglasi.</b><br>'
-                       '<img src="cid:image1"><br>'
+                       '<img src="cid:image0"><br>'
                        '<b>Lista na filtrirani oglasi:</b> <br>'
                        '%s <br>'
                        '<b>note: Ako imate nekoja idea kako moze nesto podobro da se napravi..pisi te mi..</b>'
@@ -84,7 +84,7 @@ def send_email_notification(file_name):
     fp.close()
 
     # Define the image's ID as referenced above
-    msgImage.add_header('Content-ID', '<image1>')
+    msgImage.add_header('Content-ID', '<image0>')
     msgRoot.attach(msgImage)
 
     with open(emails_list, 'rb') as f:

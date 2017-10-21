@@ -66,6 +66,38 @@ def av_list_get_avr(item):
     o_file.close()
     return 0.;
 
+def extract_by_item(file_name, item, index):
+
+    with open(file_name, 'r') as f:
+        reader = csv.reader(f, delimiter=';', quoting=csv.QUOTE_NONE)
+        results = filter(lambda row: row[index] == item, reader)
+    f.close()
+
+    return results;
+
+def get_average_data(file_name):
+
+    unique = set()  # set for fast O(1) amortized lookup
+    # remove duplicates
+    with open(file_name, 'r') as f:
+        reader = csv.reader(f, delimiter=';', quoting=csv.QUOTE_NONE)
+        # creating a list
+        for line in reader:
+            if line[3] in unique: continue  # skip duplicate
+            unique.add(line[3])
+    f.close()
+
+    data = set()
+    for area in unique:
+        sum = 0
+        counter = 0
+        sort = extract_by_item(file_name, area, 3)
+        for item in sort:
+            sum += float(item[2].replace(" ", "").rstrip(item[2][-2:]).upper())
+            counter += 1
+        data.add((area, sum/counter, av_list_get_avr(area)))
+
+    return data;
 
 # Todo: the function need to be implemented!
 def av_list_update_remove(item):

@@ -3,6 +3,7 @@ from notifications import send_email_notification
 import csv
 import numpy as np
 import matplotlib
+import random
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from av_list_handler import av_list_update_item
@@ -20,7 +21,7 @@ def extract_by_item(file_name, item, index):
 def get_data_graph(file_name):
 
     unique = set()  # set for fast O(1) amortized lookup
-
+    # remove duplicates
     with open(file_name, 'r') as f:
         reader = csv.reader(f, delimiter=';', quoting=csv.QUOTE_NONE)
         # creating a list
@@ -78,8 +79,8 @@ def plot_data(data, file_name):
     # add some text for labels, title and axes ticks
     ax.set_ylabel('Price [euro/m2]')
     ax.set_title('Thessaloniki - City Areas')
-    ax.set_xticks(ind+(width*1.5)) # set shift of the names
 
+    ax.set_xticks(ind+(width*1.5)) # set shift of the names
     ax.set_xticklabels(names)
     plt.xticks(rotation=270)
 
