@@ -29,7 +29,7 @@ def send_email(recivers, message):
 def send_email_notification(file_name):
 
     emails_list = "../../private/emails.csv"
-    chart = "./data/" + file_name.replace(" ", "").rstrip(file_name[-4:]) + '.png'
+    chart = file_name.replace(" ", "").rstrip(file_name[-4:]) + '.png'
     content = '\n'
 
     num_items = 0

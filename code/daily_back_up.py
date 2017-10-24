@@ -21,17 +21,17 @@ yesterday = date.today() - timedelta(1)
 print 'Daily notification for' + yesterday.strftime("%Y%m%d")
 
 timestr = yesterday.strftime("%Y%m%d")
-filename = 'data.csv' #data_'+timestr+'.csv'
+filename = 'data_'+timestr+'.csv'
 filename_grafik = 'data_'+timestr+'.png'
 
 # post-collecting data processing
 remove_duplicates(filename)
 print 'the code is starting'
-data = get_data_graph(filename)
+data = get_data_graph('./data/'+filename)
 plot_data(data, './data/'+filename_grafik)
 gen_graph_daily_avr()
-send_email_notification(filename)
+send_email_notification('./data/'+filename)
 
 copyfile('av_list.csv', './data/avr_data/gav_'+today.strftime("%Y%m%d")+'.csv')
 # remove the temp file.
-#os.remove(filename)
+os.remove(filename)
